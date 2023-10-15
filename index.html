@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calculator</title>
+    <link rel="icon" href="logo.png" type="image/icon type">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div id="calculator">
+    <div id="pastdisplay"></div>
+    <div id="display"></div>
+    <button class="color" onclick="clearDisplay()">C</button>
+    <button class="color" onclick="deletdisplay()" ><img src="delete.png"></button>
+    <button class="color" onclick="appendToDisplay('(')">(</button>
+    <button class="color" onclick="appendToDisplay(')')">)</button>
+    <button class="color" onclick="appendToDisplay('*')">*</button>
+    <button class="color" onclick="appendToDisplay('-')">-</button>
+    <button class="color" onclick="per()">%</button>
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button class="color" onclick="appendToDisplay('+')">+</button>
+    <button class="color" onclick="sqrt()">sqrt</button>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button class="color" onclick="appendToDisplay('/')">/</button>
+    <button class="color" onclick="ans()">Ans</button>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+
+    <button class="color" onclick="calculateResult()" style="grid-column: span 2;">=</button>
+    <button onclick="appendToDisplay('.')">.</button>
+    <button onclick="appendToDisplay('0')">0</button>
+    <input type="button" class="onoff" onclick="start()"id="power" value="ON"></input>
+ 
+</div>
+
+<script>
+    let display = document.getElementById('display');
+    let val;
+    let d;
+    let pastdisplay=document.getElementById('pastdisplay');
+    let answer='NAN';
+
+        function appendToDisplay(value) {
+            val = value;
+            display.textContent += value;
+        }
+
+        function clearDisplay() {
+            display.textContent = '';
+            pastdisplay.textContent = '';
+        }
+
+        function deletdisplay() {
+            display.textContent = display.textContent.replace(val, '');
+        }
+        function per()
+        {
+            display.textContent=display.textContent/100;
+        }
+
+        function ans() {
+            display.textContent = answer;
+        }
+
+        function sqrt() {
+            confirm("plase enter the value here");
+            let sqr = prompt("Enter the value here");
+            sqr = Math.sqrt(sqr);
+            display.textContent += sqr;
+        }
+
+        function start() {
+            display.textContent = "CALCULATOR";
+            var button = document.querySelector("#power");
+            // // Check the current value and change it
+            if (button.value === 'ON') {
+                button.value = 'OFF';
+            } else {
+                button.value = 'ON';
+                display.textContent = '';
+                pastdisplay.textContent='';
+            }
+            setTimeout(() => {
+                display.textContent = '';
+            }, 1000);
+        }
+
+        function calculateResult() {
+            try {
+                d = display.textContent;
+                display.textContent = eval(display.textContent);
+                answer = eval(display.textContent);
+                pastdisplay.textContent = d + "=";
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+
+</script>
+</body>
+</html>
